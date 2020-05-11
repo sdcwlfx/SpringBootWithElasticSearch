@@ -1,0 +1,53 @@
+server:
+  port: 9005
+
+#elasticsearch:
+#  ip: 127.0.0.1
+#  port: 9300
+#  pool: 5
+
+
+spring:
+  application:
+    name: capture_from_es #服务名
+
+  #kafka配置
+  kafka:
+    #配置多台服务器  其中hadoop01、hadoop02、hadoop03在C:\Windows\System32\drivers\etc\hosts中配置地址映射
+    #bootstrap-servers: hadoop01:9092;hadoop02:9092;hadoop03:9092
+    #bootstrap-servers: 21.40.16.39:9092;21.40.16.40:9092;21.40.16.41:9092
+    bootstrap-servers: kafka1:9092;kafka2:9092;kafka3:9092
+
+    producer:
+      #发生错误后，消息重发的次数
+      retries: 2
+      batch:
+        size: 1638400
+      buffer:
+        memory: 50000000
+      linger:
+        ms: 30
+      compression:
+        type: snappy
+      max:
+        block:
+          ms: 15000
+      #键的序列化方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      #值的序列化方式
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      #只有集群的首领节点收到消息，生产者就会收到来自服务器的成功响应
+      acks: all
+
+    listener:
+      #侦听器容器中运行的线程数
+      concurrency: 5
+      #listner负责ack，每调用一次，就立即commit
+      ack-mode: manual_immediate
+      missing-topics-fatal: false
+
+#日志级别
+logging:
+  level:
+    root: info
+

@@ -1,0 +1,7 @@
+com\cloudwalk\service\CaptureService.class
+com\cloudwalk\runner\MyApplicationRunner.class
+com\cloudwalk\ESApplication.class
+com\cloudwalk\search\ElasticSearch.class
+com\cloudwalk\config\ElasticSearchConfig.class
+com\cloudwalk\producer\KafkaSender$1.class
+com\cloudwalk\producer\KafkaSender.class
