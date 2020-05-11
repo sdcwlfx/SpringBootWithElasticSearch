@@ -20,19 +20,19 @@ import java.io.IOException;
 public class CaptureService {
     @Autowired
     private KafkaSender kafkaSender;
-    private String STOCK_CAPTURE_TOPIC="dl_stock_capture"; //存量capture kafka主题
+    private String STOCK_CAPTURE_TOPIC="stock_capture"; //存量capture kafka主题
 
     @Transactional
     public void writeToKafka() throws IOException {
         RestHighLevelClient client =new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("21.30.36.18",11206,"http")
+                        new HttpHost("127.0.0.1",9200,"http")
                 )
         );
 
         final Scroll scroll=new Scroll(TimeValue.timeValueMinutes(1L));
         //索引
-        SearchRequest searchRequest=new SearchRequest("capture-202004");
+        SearchRequest searchRequest=new SearchRequest("myindex");
         searchRequest.scroll(scroll);
         SearchSourceBuilder searchSourceBuilder=new SearchSourceBuilder();
         //分页规模
