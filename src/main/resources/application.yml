@@ -51,3 +51,7 @@ logging:
   level:
     root: info
 
+#可配置索引参数
+target:
+  index: myindex
+
