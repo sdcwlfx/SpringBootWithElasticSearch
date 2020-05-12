@@ -21,6 +21,10 @@ public class CaptureService {
     @Autowired
     private KafkaSender kafkaSender;
     private String STOCK_CAPTURE_TOPIC="stock_capture"; //存量capture kafka主题
+    
+    #索引可配置
+    @Value("${target.index}")
+    private String target_index;
 
     @Transactional
     public void writeToKafka() throws IOException {
@@ -32,7 +36,7 @@ public class CaptureService {
 
         final Scroll scroll=new Scroll(TimeValue.timeValueMinutes(1L));
         //索引
-        SearchRequest searchRequest=new SearchRequest("myindex");
+        SearchRequest searchRequest=new SearchRequest(target_index);
         searchRequest.scroll(scroll);
         SearchSourceBuilder searchSourceBuilder=new SearchSourceBuilder();
         //分页规模
